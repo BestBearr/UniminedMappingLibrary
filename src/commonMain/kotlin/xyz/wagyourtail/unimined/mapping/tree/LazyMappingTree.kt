@@ -212,10 +212,16 @@ class LazyMappingTree : AbstractMappingTree() {
     class LazyClassNode(val tree: LazyMappingTree) {
         var _names: MutableMap<Namespace, InternalName> = mutableMapOf()
         val names: Map<Namespace, InternalName> get() = _names
-        var value: String = ""
+        private val buffer = StringBuilder()
+        var value: String
+            get() = this.buffer.toString()
+            set(value) {
+                this.buffer.clear()
+                this.buffer.append(value)
+            }
 
         fun append(value: String) {
-            this.value += value
+            this.buffer.append(value)
         }
 
         fun setNames(names: Map<Namespace, InternalName>) {
@@ -265,10 +271,16 @@ class LazyMappingTree : AbstractMappingTree() {
     class LazyPackageNode(val tree: LazyMappingTree) {
         private val _names: MutableMap<Namespace, PackageName> = mutableMapOf()
         val names: Map<Namespace, PackageName> get() = _names
-        var value: String = ""
+        private val buffer = StringBuilder()
+        var value: String
+            get() = this.buffer.toString()
+            set(value) {
+                this.buffer.clear()
+                this.buffer.append(value)
+            }
 
         fun append(value: String) {
-            this.value += value
+            this.buffer.append(value)
         }
 
         fun visitPackage(names: Map<Namespace, PackageName>): PackageVisitor {
@@ -311,10 +323,16 @@ class LazyMappingTree : AbstractMappingTree() {
     }
 
     class LazyConstantGroupNode(val tree: LazyMappingTree, val type: ConstantGroupNode.InlineType, val name: String?, val baseNs: Namespace, val namespaces: Set<Namespace>) {
-        var value: String = ""
+        private val buffer = StringBuilder()
+        var value: String
+            get() = this.buffer.toString()
+            set(value) {
+                this.buffer.clear()
+                this.buffer.append(value)
+            }
 
         fun append(value: String) {
-            this.value += value
+            this.buffer.append(value)
         }
 
         fun visitConstantGroup(
