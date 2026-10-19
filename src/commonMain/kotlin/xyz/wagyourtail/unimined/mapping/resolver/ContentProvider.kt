@@ -10,6 +10,8 @@ interface ContentProvider {
 
     fun content(): BufferedSource
 
+    fun isZip(): Boolean? = null
+
     companion object {
         fun of(fileName: String, content: BufferedSource) = object : ContentProvider {
             override suspend fun resolve() {}
